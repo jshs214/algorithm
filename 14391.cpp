@@ -13,12 +13,12 @@ int main() {
 		string s;
 		cin >> s;
 		for (int j = 0; j < m; j++) {
-			a[i][j] = s[j];
+			a[i][j] = s[j]-'0';
 		}
 	}
 
 	//경우의 수
-	for (int i = 0; i <= (1 << n*m); i++) {
+	for (int i = 0; i < (1 << n*m); i++) {
 		int sum = 0;
 
 		// width check
@@ -31,8 +31,8 @@ int main() {
 					cur = cur * 10 + a[y][x];
 				}
 				else {
+					sum += cur;
 					cur = 0;
-					//sum += cur;
 				}
 				//logic
 			}
@@ -42,14 +42,14 @@ int main() {
 		for (int x = 0; x < m; x++) {
 			int cur = 0;
 			for (int y = 0; y < n; y++) {
-				int idx = x * n + y;
+				int idx = y * m + x;
 
-				if ((i & (1 << idx)) == 1) {
+				if ((i & (1 << idx)) != 0) {
 					cur = cur * 10 + a[y][x];
 				}
 				else {
+					sum += cur;
 					cur = 0;
-					//sum += cur;
 				}
 			}
 			sum += cur;
