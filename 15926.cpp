@@ -10,17 +10,14 @@ int d[200002];
 int main() {
     cin >> n >> s;
 
-
-
     for (int i = 0; i < n; i++) {
         if (s[i] == '(') {
             st.push(i);
         }
         else if(s[i] ==')') {
             if (st.size()) {
-                d[st.top()] = 1;
-                cout << st.top() << ", ";
-                d[i] = 1;
+                d[st.top()] = 1;    // '(' 위치
+                d[i] = 1;           // ')' 위치
                 st.pop();
             }
         }
