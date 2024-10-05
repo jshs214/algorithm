@@ -46,39 +46,6 @@ bool MoveQueen(int y, int x) {
 	return true;
 }
 
-void FixQueen(int y, int x) {
-	visited[y][x] = 1;
-	for (int i = 0; i < n; i++) {
-		visited[i][x] = 1;
-		visited[y][i] = 1;
-	}
-
-	for (int i = 0; i < n; i++) {
-		int ny, nx;
-		// '/' 방향
-		if (check(y + i, x - i)) {
-			ny = y + i;
-			nx = x - i;
-			visited[ny][nx] = 1;
-		}
-		if (check(y - i, x + i)) {
-			ny = y - i;
-			nx = x + i;
-			visited[ny][nx] = 1;
-		}
-		// '\' 방향
-		if (check(y - i, x - i)) {
-			ny = y - i;
-			nx = x - i;
-			visited[ny][nx] = 1;
-		}
-		if (check(y + i, x + i)) {
-			ny = y + i;
-			nx = x + i;
-			visited[ny][nx] = 1;
-		}
-	}
-}
 
 void solve(int y) {
 	if (y == n) {
