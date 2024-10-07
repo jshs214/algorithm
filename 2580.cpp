@@ -61,7 +61,6 @@ bool isValid(int y, int x, int num) {
 }
 
 void solve(int depth) {
-
     if (depth == coord.size()) {
         isSolve = true;
         for (int i = 0; i < N; i++) {
@@ -73,13 +72,13 @@ void solve(int depth) {
         return;
     }
 
-    // ºóÄ­ °³¼ö Å½»ö
+    // ºóÄ­ idx
     int ny = coord[depth].first;
     int nx = coord[depth].second;
 
-    for (int num = 1; num <= 9; num++) {
-        if (isValid(ny, nx, num)) {
-            a[ny][nx] = num;  
+    for (int i = 1; i <= 9; i++) {
+        if (isValid(ny, nx, i)) {
+            a[ny][nx] = i;  
 
             if (isSolve) return;
             solve(depth + 1);
