@@ -16,7 +16,6 @@ int main() {
 	sort(v.begin(), v.end());
 
 	int checkTime = v[0].first + v[0].second;
-	int ret = 0;
 
 	for (int i = 1; i < n; i++) {
 		if (v[i].first < checkTime) {
@@ -26,9 +25,9 @@ int main() {
 		else
 			checkTime = v[i].first + v[i].second;
 
-		cout << v[i].first << "," << v[i].second <<" : " << checkTime <<'\n';
 	}
 
+	cout << checkTime;
 
 	
 
