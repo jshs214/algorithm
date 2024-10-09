@@ -1,28 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int _start, _end;
+int from, to;
 vector<pair<int, int>> l;
 int n;
-int ret;
 
 int main() {
 	cin >> n;
 	for (int i = 0; i < n; i++) {
-		cin >> _start >> _end;
-		l.push_back({ _end, _start});
+		cin >> from >> to;
+		l.push_back({ to, from});
 	}
 
 	sort(l.begin(), l.end());
 
 
-	_end = l[0].first;
-	ret = 1;
+	to = l[0].first;
+	int ret = 1;
 
 	for (int i = 1; i < n; i++) {
 		// 이전 end시간이 현재 start시간보다 작으면,
-		if (_end <= l[i].second) {
-			_end = l[i].first;
+		if (to <= l[i].second) {
+			to = l[i].first;
 			ret++;
 		}
 	}
