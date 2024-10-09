@@ -2,19 +2,17 @@
 using namespace std;
 using ll = long long;
 
-ll pSum[1000005];
-ll mod[1005];
+ll pSum[1000005] = { 0, };
+ll mod[1005] = { 0, };
 
-ll sum;
-
-int n, m;
+ll n, m;
 ll cnt = 0;
 
-// Start P 2
-int combi(ll start) {
-	int cnt = 0;
-	cnt = start * (start - 1) / 2;
-	return cnt;
+// nP2
+ll combi(ll start) {
+	ll ret = 0;
+	ret = start * (start - 1) / 2;
+	return ret;
 }
 
 int main() {
@@ -33,7 +31,7 @@ int main() {
 	for (int i = 1; i <= n; i++) {
 		// m으로 떨어지는 개수
 		mod[pSum[i] % m]++;
-	}
+	} 
 
 	// 0 부터 mod개수 사이 cnt
 	cnt += mod[0];
