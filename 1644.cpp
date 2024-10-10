@@ -19,6 +19,7 @@ vector<int> era(int n) {
 
 	return v;
 }
+
 int main() {
 	cin >> n;
 
