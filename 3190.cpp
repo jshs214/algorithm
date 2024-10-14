@@ -1,108 +1,49 @@
-
-// 3번째 테케 확인.
-// 사과 이후 꼬리처리 확인
-
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
-int a[104][104] = { 0, };
-int visited[104][104];
-int n, k, l;
-
-int ret = 0;
-
-deque<pair<int, int>> snake;
-
-// 1 ~ 4
-int direction = 0; // 초기 방향: 오른쪽
-int dy[] = { 0, 1, 0, -1 };
-int dx[] = { 1, 0, -1, 0 };
-
-// direction rotate
-void rotate(char c) {
-	if (c == 'D')
-		direction = (direction + 1) % 4;
-	else if (c == 'L')
-		direction = (direction + 3) % 4;
-}
-
-bool move() {
-	//snake
-	int y = snake.front().first;
-	int x = snake.front().second;
-
-	int ny = y + dy[direction];
-	int nx = x + dx[direction];
-
-	if (ny < 0 || nx < 0 || ny >= n || nx >= n || a[ny][nx] ==1) {
-		return false;
-	}
-		
-	if (a[ny][nx] == 2) {
-		a[ny][nx] = 1;
-		snake.push_front({ ny,nx });
-	}
-	else {
-		a[ny][nx] = 1;
-		snake.push_front({ ny,nx });
-			
-		//꼬리 처리
-		a[snake.back().first][snake.back().second] = 0;
-		snake.pop_back();
-	}
-
-	return true;
-}
-
-
+#define time ff
+#define y1 cc
+typedef long long ll;
+int n, k, l, y, x, t, ret, idx, dir = 1;
+int a[104][104], visited[104][104], time;
+char c;
+deque<pair<int, int>> dq;
+vector<pair<int, int>> _time;
+const int dy[] = { -1, 0, 1, 0 };
+const int dx[] = { 0, 1, 0, -1 };
 int main() {
-	cin >> n >> k;
+    ios::sync_with_stdio(false); cin.tie(0);
+    cin >> n >> k;
+    for (int i = 0; i < k; i++) {
+        cin >> y >> x;
+        a[--y][--x] = 1;
+    }
+    cin >> l;
+    for (int i = 0; i < l; i++) {
+        cin >> t >> c;
+        if (c == 'D') _time.push_back({ t, 1 });
+        else _time.push_back({ t, 3 });
+    }
+    dq.push_back({ 0, 0 });
+    while (dq.size()) {
+        time++;
+        tie(y, x) = dq.front();
+        int ny = y + dy[dir];
+        int nx = x + dx[dir];
+        if (ny >= n || ny < 0 || nx >= n || nx < 0 || visited[ny][nx]) break;
 
-	for (int i = 0; i < k; i++) {
-		int y, x;
-		cin >> y >> x;
-		
-		a[y][x] = 2;
-	}
+        if (!a[ny][nx]) {
+            visited[dq.back().first][dq.back().second] = 0;
+            dq.pop_back();
+        }
+        else a[ny][nx] = 0;
 
-	cin >> l;
-	
-
-	// 뱀 시작
-	snake.push_back({ 0,0 });
-	a[0][0] = 1;
-
-	// 사과
-	vector<pair<int, char>> p;
-	for (int i = 0; i < l; i++) {
-		int x;
-		char c;
-
-		cin >> x >> c;
-		p.push_back({ x, c });
-	}
-
-	int turn_idx = 0;
-	while (true) {
-		if (turn_idx < p.size() && ret == p[turn_idx].first) {
-			rotate(p[turn_idx].second);
-			turn_idx++;
-		}
-
-		// 1초 이동
-		if (!move()) {
-			break;
-		}
-
-		ret++;
-	}
-
-
-	
-
-	cout << ret +1;
-
-
-
-	return 0;
+        visited[ny][nx] = 1;
+        dq.push_front({ ny, nx });
+        if (time == _time[idx].first) {
+            dir = (dir + _time[idx].second) % 4;
+            idx++;
+        }
+    }
+    cout << time << "\n";
+    return 0;
 }
