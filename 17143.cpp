@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+//           상  하 우 좌
 int dy[] = { -1, 1, 0, 0 };
 int dx[] = { 0, 0, 1, -1 };
 
@@ -39,12 +40,22 @@ void ChangeDirection(int &dir) {
 }
 
 void MoveShark() {
+
+	// -------중복되는 상어 kill 방법 생각.
+	// size, vector index
+	pair<int, int> a[104][104];
+	memset(a, 0, sizeof(a));
+
     // 상어 모두 이동
     for (int i = 0; i < v.size(); i++) {
         int y = v[i].y;
         int x = v[i].x;
         int speed = v[i].speed;
         int dir = v[i].dir;
+
+        // 속도 최적화
+        if (dir <= 1) speed %= (2 * (R - 1));
+        else speed %= (2 * (C - 1));
 
         // 상어 이동
         for (int j = 0; j < speed; j++) {
@@ -53,39 +64,47 @@ void MoveShark() {
 
             if (y < 0 || y >= R) {
                 ChangeDirection(dir);
-                y += dy[dir] * 2; // 경계 복귀
+                y += dy[dir] * 2; // 1칸 이동 시 overflow니 2칸 이동
             }
             if (x < 0 || x >= C) {
                 ChangeDirection(dir);
-                x += dx[dir] * 2; // 경계 복귀
+                x += dx[dir] * 2; // 1칸 이동 시 overflow니 2칸 이동
             }
         }
 
-        // 이동한 상어 위치 업데이트
         v[i].y = y;
         v[i].x = x;
         v[i].dir = dir;
+
+
+		//중복 체크
+		if (a[y][x].first == 0 && a[y][x].second == 0) {
+			a[y][x].first = v[i].size;
+			a[y][x].second = i;
+		}
+		else {
+			int beforeSharkSize= a[y][x].first;
+			int beforeSharkIdx = a[y][x].second;
+
+			// 이전 상어가 더 크면
+			if (beforeSharkSize > v[i].size) {
+				v.erase(v.begin() + i);
+				i--;
+			}
+			// 현재 상어가 더 크면
+			else {
+				a[y][x].first = v[i].size;
+				a[y][x].second = i;
+
+				v.erase(v.begin() + beforeSharkIdx);
+				i--;
+			}
+
+		}
+
     }
 
-    // 같은 위치에 있는 상어 처리
-    for (int i = 0; i < v.size(); i++) {
-        for (int j = i + 1; j < v.size(); j++) {
-            if (v[i].y == v[j].y && v[i].x == v[j].x) {
-                // 크기가 큰 상어만 남김
-                if (v[i].size > v[j].size) {
-                    v.erase(v.begin() + j);
-                    j--;
-                }
-                else {
-                    v.erase(v.begin() + i);
-                    i--;
-                    break;
-                }
-            }
-        }
-    }
 }
-
 
 
 int main() {
@@ -101,6 +120,8 @@ int main() {
 
 	while (++peopleIdx < C) {  // 낚시꾼 이동
 		GetShark();  // 상어 잡기
+
+        // 2d array로 시간 개선
 		MoveShark();  // 상어 이동
 	}
 
