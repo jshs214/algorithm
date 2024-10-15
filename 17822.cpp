@@ -16,10 +16,7 @@ void dfs(int y, int x, int value, bool &flag) {
 	for (int i = 0; i < 4; i++) {
 		int ny = y + dy[i];
 		// 가로는 원형이므로 모듈러 연산
-		int nx = x +dx[i];
-
-		if (nx < 0) nx = m-1;
-		else if(nx >= m) nx =0
+		int nx = (x + dx[i] +m) %m;
 
 		if (ny < 0 ||  ny >= n ) continue;
 		if (circleBoard[ny][nx] == 0) continue;
