@@ -40,13 +40,11 @@ void ChangeDirection(int &dir) {
 }
 
 void MoveShark() {
+    // (y, x)에 가장 큰 상어의 정보 저장 (size, index)
+    pair<int, int> a[104][104];
+    memset(a, -1, sizeof(a)); // -1로 초기화
 
-	// -------중복되는 상어 kill 방법 생각.
-	// size, vector index
-	pair<int, int> a[104][104];
-	memset(a, 0, sizeof(a));
-
-    // 상어 모두 이동
+    // 모든 상어 이동
     for (int i = 0; i < v.size(); i++) {
         int y = v[i].y;
         int x = v[i].x;
@@ -62,49 +60,40 @@ void MoveShark() {
             y += dy[dir];
             x += dx[dir];
 
+            // 경계 밖으로 나가면 방향 전환
             if (y < 0 || y >= R) {
                 ChangeDirection(dir);
-                y += dy[dir] * 2; // 1칸 이동 시 overflow니 2칸 이동
+                y += dy[dir] * 2;
             }
             if (x < 0 || x >= C) {
                 ChangeDirection(dir);
-                x += dx[dir] * 2; // 1칸 이동 시 overflow니 2칸 이동
+                x += dx[dir] * 2;
             }
         }
 
+        // 이동 완료된 위치 저장
         v[i].y = y;
         v[i].x = x;
         v[i].dir = dir;
 
-
-		//중복 체크
-		if (a[y][x].first == 0 && a[y][x].second == 0) {
-			a[y][x].first = v[i].size;
-			a[y][x].second = i;
-		}
-		else {
-			int beforeSharkSize= a[y][x].first;
-			int beforeSharkIdx = a[y][x].second;
-
-			// 이전 상어가 더 크면
-			if (beforeSharkSize > v[i].size) {
-				v.erase(v.begin() + i);
-				i--;
-			}
-			// 현재 상어가 더 크면
-			else {
-				a[y][x].first = v[i].size;
-				a[y][x].second = i;
-
-				v.erase(v.begin() + beforeSharkIdx);
-				i--;
-			}
-
-		}
-
+        // 해당 위치에 기존 상어와 비교하여 더 큰 상어만 남기기
+        if (a[y][x].first == -1 || v[i].size > v[a[y][x].second].size) {
+            a[y][x] = { v[i].size, i }; // 더 큰 상어 정보 저장
+        }
     }
 
+    // 중복된 상어 제거
+    vector<shark> new_v;  // 살아남은 상어만 저장할 벡터
+    for (int i = 0; i < R; i++) {
+        for (int j = 0; j < C; j++) {
+            if (a[i][j].first != -1) {
+                new_v.push_back(v[a[i][j].second]);
+            }
+        }
+    }
+    v = new_v;  // 살아남은 상어만 원본 벡터에 반영
 }
+
 
 
 int main() {
