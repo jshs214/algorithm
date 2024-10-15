@@ -53,6 +53,7 @@ int main() {
 	//각각 피자
 	ret = aCnt[pizza] + bCnt[pizza];
 
+	//경우의 수 피자
 	for (int i = 1; i < pizza; i++) {
 		ret += (aCnt[i] * bCnt[pizza - i]);
 	}
