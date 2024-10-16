@@ -13,20 +13,25 @@ int solve(int a[], int b[]) {
 	for (int i = 0; i < n; i++) {
 		int value = a[i];
 
-		int left = 0, right = m -1;
-		int mid;
+		//풀이 1
+		//int left = 0, right = m -1;
+		//int mid;
 
-		while (left <= right) {
-			mid = (left + right) / 2;
+		//while (left <= right) {
+		//	mid = (left + right) / 2;
 
-			if (b[mid] < value) {
-				left = mid + 1;
-			}
-			else
-				right = mid - 1;
-		}
+		//	if (b[mid] < value) {
+		//		left = mid + 1;
+		//	}
+		//	else
+		//		right = mid - 1;
+		//}
 
-		cnt += left;
+		//cnt += left;
+
+		//풀이 2
+		auto pos = lower_bound(b, b + m, value);
+		cnt += (int)(pos - b);
 	}
 
 	return cnt;
