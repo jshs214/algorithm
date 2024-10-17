@@ -29,20 +29,21 @@ int main() {
 	}
 
 	//1. 단순 구현
-	cout << solve();
-	//// 2. greedy
-	//double d = a[0];
-	//double ret = d;
+	//cout << solve();
 
-	//for (int i = 1; i < n; i++) {
-	//	if (a[i] > d * a[i])
-	//		d = a[i];
-	//	else
-	//		d *= a[i];
-	//	ret = max(d, ret);
-	//}
+	// 2. greedy
+	double d = a[0];
+	double ret = d;
 
-	//printf("%.3lf", ret);
+	for (int i = 1; i < n; i++) {
+		if (a[i] > d * a[i])
+			d = a[i];
+		else
+			d *= a[i];
+		ret = max(d, ret);
+	}
+
+	printf("%.3lf", ret);
 		
 
 
