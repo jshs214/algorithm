@@ -2,15 +2,15 @@
 
 using namespace std;
 
-const int maxLength = 1000004;
-int lis[maxLength];
+const int L = 1000004;
+int lis[L];
 int len = 0;
 int n;
 
 int main() {
     cin >> n;
 
-    fill(lis, lis + maxLength, INT_MAX);
+    fill(lis, lis + L, INT_MAX);
 
     for (int i = 0; i < n; i++) {
         int num;
