@@ -29,7 +29,9 @@ ll n, humanAtk;
 
 bool fight() {
 	// 몬스터 잡기위한 턴
-	ll turnsToKillMonster = (M.hp + H.atk - 1) / H.atk;
+	ll turnsToKillMonster = M.hp / H.atk;
+	if (M.hp % H.atk) turnsToKillMonster++;
+
 	// 몬스터의 공격 량 (횟수 * 데미지)
 	ll turnsForMonster = (turnsToKillMonster - 1) * M.atk;
 
