@@ -4,6 +4,10 @@ using namespace std;
 int t, n, m;
 
 int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
 	cin >> t;
 
 	while (t--) {
@@ -31,12 +35,10 @@ int main() {
 			while (left <= right) {
 				mid = (left + right) / 2;
 
-				if (v[mid] < value) {
+				if (v[mid] < value) 
 					left = mid + 1;
-				}
-				else if (v[mid] > value) {
+				else if (v[mid] > value) 
 					right = mid - 1;
-				}
 				else if(v[mid] == value){
 					ret = 1;
 					break;
