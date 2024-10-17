@@ -29,11 +29,11 @@ int main() {
 	}
 
 
-	ll left = 0, mid;
+	ll left = 1, mid;
 	ll right = sum;
 
 	while (left <= right) {
-		mid = (right + left) / (ll)2;
+		mid = (right + left) / 2;
 
 
 		if (solve(mid)) {
@@ -44,7 +44,6 @@ int main() {
 			right = mid - 1;
 	}
 
-	/*cout << ret;*/
 
 	ll len = 0;
 	len = sum - ret * c;
