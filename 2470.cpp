@@ -5,8 +5,6 @@ int a[100005];
 int n, mn, mx;
 int ret = INT_MAX;
 
-
-
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(nullptr);
@@ -21,7 +19,7 @@ int main() {
 
 	int l = 0, r = n-1;
 
-	while (l <= r) {
+	while (l < r) {
 		int sum = a[l] + a[r];
 
 		if (sum == 0) {
