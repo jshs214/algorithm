@@ -4,7 +4,7 @@ using namespace std;
 typedef long long ll;
 
 ll n;
-ll a[94];
+ll a[91];
 
 ll fibo(ll num) {
 	if (num == 0 || num == 1)
@@ -16,6 +16,9 @@ ll fibo(ll num) {
 
 
 int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr); cout.tie(nullptr);
+
 	cin >> n;
 	
 	cout << fibo(n);
