@@ -33,7 +33,7 @@ int main() {
 	for (int i = 0; i <= 9; i++)
 		cnt += dp[n][i];
 	
-	cout << cnt;
+	cout << cnt % MOD;
 
 	
 
