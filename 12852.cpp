@@ -43,9 +43,8 @@ int main() {
 
 	dp[1] = 0;
 	for (int i = 2; i <= x; i++) {
-		if (!(i % 3) && !(i % 2)) {
+		if (!(i % 3) && !(i % 2))
 			dp[i] = min(_div(i, 2), _div(i, 3));
-		}
 		else if (!(i % 3) ) 
 			dp[i] = min(_div(i, 3), _minus1(i));
 		else if (!(i % 2))
