@@ -21,31 +21,32 @@ int solve(int y, int x, int status) {
     if (y == n && x == n) return 1;
     if (!in(y, x) || dist[y][x] == 1) return 0;
 
+
     int& ret = dp[y][x][status];
     if (ret != -1) return ret;
 
     ret = 0;
 
     if (status == horizontal) {
-        if (dist[y][x + 1] == 0) 
+        if (in(y, x + 1) && dist[y][x + 1] == 0) 
             ret += solve(y, x + 1, horizontal);
-        if (dist[y + 1][x + 1] == 0) 
+        if (in(y + 1, x + 1) && dist[y][x + 1] == 0 && dist[y + 1][x] == 0 && dist[y + 1][x + 1] == 0) 
             ret += solve(y + 1, x + 1, diagonal);
     }
 
     if (status == vertical) {
-        if (dist[y + 1][x] == 0)
+        if (in(y + 1, x) && dist[y + 1][x] == 0)
             ret += solve(y + 1, x, vertical);
-        if (dist[y + 1][x + 1] == 0)
+        if (in(y + 1, x + 1) && dist[y][x + 1] == 0 && dist[y + 1][x] == 0 && dist[y + 1][x + 1] == 0)
             ret += solve(y + 1, x + 1, diagonal);
     }
 
     if (status == diagonal) {
-        if (dist[y][x + 1] == 0)
+        if (in(y, x + 1) && dist[y][x + 1] == 0)
             ret += solve(y, x + 1, horizontal);
-        if (dist[y + 1][x] == 0)
+        if (in(y + 1, x) && dist[y + 1][x] == 0)
             ret += solve(y + 1, x, vertical);
-        if (dist[y + 1][x + 1] == 0) 
+        if (in(y + 1, x + 1) && dist[y][x + 1] == 0 && dist[y + 1][x] == 0 && dist[y + 1][x + 1] == 0) 
             ret += solve(y + 1, x + 1, diagonal);
     }
 
