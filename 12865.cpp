@@ -1,42 +1,22 @@
-// greedy 실패. 추후 dp로 다시풀기
-
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, k;
+int n, k, w, v;
 
-// W, V
-vector<pair<int, int>> item;	
-
-int ret = 0;
+int dp[100004];
 
 int main() {
 	cin >> n >> k;
 
 	for (int i = 0; i < n; i++) {
-		int w, v;
 		cin >> w >> v;
-		item.push_back({ w, v });
-	}
 
-	sort(item.begin(), item.end());
-
-	priority_queue<pair<int, int>> pq;
-
-
-	for (int i = 0; i < n; i++) {
-		if (item[i].first <= k) {
-			pq.push(item[i]);
-		}
-		if (pq.size()) {
-			ret += pq.top().second;
-			k -= pq.top().first;
-			pq.pop();
+		for (int j = k; j >= w; j--) {
+			dp[j] = max(dp[j], dp[j - w] + v);
 		}
 	}
-
-
-	cout << ret;
+	cout << dp[k];
+	
 
 	return 0;
 }
