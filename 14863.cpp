@@ -22,13 +22,9 @@ int go(int time, int idx) {
 	// ตัดู 
 	ret = -INF;
 	if (time - onFoot[idx].first >= 0) {
-		//ret = onFoot[idx].second;
-		//ret = go(time - onFoot[idx].first, idx + 1) + onFoot[idx].second;
 		ret = max(ret, go(time - onFoot[idx].first, idx + 1) + onFoot[idx].second);
 	}
 	if (time - bicycle[idx].first >= 0) {
-		//ret += bicycle[idx].second;
-		//ret += go(time - bicycle[idx].first, idx + 1);
 		ret = max(ret, go(time - bicycle[idx].first, idx + 1) + bicycle[idx].second);
 	}
 
