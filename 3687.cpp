@@ -25,7 +25,6 @@ string minSolve(int here) {
 		ret = get_min_str(ret, to_string(i) + minSolve(here - a[i]));
 
 	}
-
 	return ret;
 }
 
