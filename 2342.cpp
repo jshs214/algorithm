@@ -42,8 +42,6 @@ int main() {
 		v.push_back(temp);
 	}
 
-	//fill(&dp[0][0][0], &dp[0][0][0] + 6 * 6 * 100004, -1);
-
 	memset(dp, -1, sizeof(dp));
 
 	// �ʱⰪ 5
