@@ -24,7 +24,7 @@ string minSolve(int here) {
 		if (here == n && i == 0) continue;
 		ret = get_min_str(ret, to_string(i) + minSolve(here - a[i]));
 
-	}
+	} 
 	return ret;
 }
 
