@@ -22,7 +22,7 @@ int go(int y, int x) {
 
 	if (visited[y][x]) {
 		cout << "-1";
-		exit(1);
+		exit(0);
 	}
 
 	int& ret = dp[y][x];
