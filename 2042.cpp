@@ -20,6 +20,7 @@ void update(vector<ll>& tree, int i, ll value) {
 		i += (i & -i);
 	}
 }
+
 int main() {
 	int n, m, k;
 	cin >> n >> m >> k;
@@ -45,8 +46,10 @@ int main() {
 
 			// 원래 값과 새 값의 차이
 			ll diff = t3 - a[t2];
-			//a[t2] = t3;
-			update(tree, t2, diff);
+
+
+			a[t2] = t3;				// 값 배열 update
+			update(tree, t2, diff);	//누적 합 tree update
 		}
 		else {
 			int t2, t3;
