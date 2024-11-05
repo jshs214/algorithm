@@ -12,18 +12,20 @@ int s, t, n, m;
 vector<int> adj[200006];
 vector<int> Radj[200006];
 
+// s, t에서 갈 수 있는곳
 int startVisited[100005];
 int endVisited[100005];
+// 각 정점에서 S, T로 갈 수 있는지 여부
 int RstartVisited[100005];
 int RendVisited[100005];
 
-void dfs(int here, int cnt, vector<int> adj, int visited[]) {
-    visited[here] = cnt;
+void dfs(int here, vector<int> adj[], int visited[]) {
+    visited[here] = 1;
 
     for (int there : adj[here]) {
         if (visited[there]) continue;
 
-        dfs(there, cnt + 1, adj, visited);
+        dfs(there, adj, visited);
     }
 
     return;
@@ -42,19 +44,20 @@ int main(int argc, char** argv)
         int a, b;
         cin >> a >> b;
         adj[a].push_back(b);
+        Radj[b].push_back(a);
     }
     cin >> s >> t;
 
+    startVisited[t] = 1;
+    endVisited[s] = 1;
     //출근
-    dfs(s, 1, adj, startVisited);
+    dfs(s, adj, startVisited);
     //퇴근
-    dfs(t, 1, adj, endVisited);
+    dfs(t, adj, endVisited);
     //출근
-    dfs(s, 1, Radj, RstartVisited);
+    dfs(s, Radj, RstartVisited);
     //퇴근
-    dfs(t, 1, Radj, RendVisited);
-
-
+    dfs(t, Radj, RendVisited);
 
 
     int cnt = 0;
