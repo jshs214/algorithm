@@ -26,7 +26,7 @@ int main() {
 		for (int j = 0; j < n; j++) {
 			if (i == j) cout << "0 ";
 			else
-				cout << (dist[i][j] == INF) ? 0 : dist[i][j] <<' ';
+				cout << (dist[i][j] == INF) ? 0 : dist[i][j];
 		}
 		puts("");
 	}
