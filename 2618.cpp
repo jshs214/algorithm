@@ -58,7 +58,7 @@ int main() {
 	}
 
 	// 경찰차 두개
-	cout << solve(0, 1);
+	cout << solve(0, 1)<<'\n';
 	trace();
 
 	return 0;
