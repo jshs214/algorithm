@@ -42,9 +42,8 @@ int main() {
 
     int _count = 0;
     for (int i = 0; i < n; i++) {
-        if (a[i] == 1) {
+        if (a[i] == 1)
             _count++;
-        }
         else {
             if (_count > 0) v.push_back(solve(_count));
             _count = 0;
