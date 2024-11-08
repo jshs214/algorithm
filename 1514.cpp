@@ -24,7 +24,7 @@ int solve(int idx, int x, int y, int z, int dir) {
 	}
 
 	ret = INF;
-	int _dir = dir ? 1 : -1;
+	int _dir = dir ? 1 : -1;		//실제 회전 방향
 
 	for (int i = 1; i <= 3; i++) {
 		ret = min(ret, 1 + solve(idx, rot(x + i * _dir),
