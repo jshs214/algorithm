@@ -62,6 +62,7 @@ int main() {
 
 	for (int i : v) {
 		if (d >= cost[0][i] + cost[i][0]) {
+			// 비용 출력
 			ret = max(ret, dist[i / 100][i % 100]);
 		}
 	}
