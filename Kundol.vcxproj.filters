@@ -174,5 +174,11 @@
     <ClCompile Include="12920.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="softeer_LV3_9.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="softeer_LV3_10.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
