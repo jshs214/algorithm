@@ -20,6 +20,7 @@ void dkikstra() {
 		int here_cost = pq.top().first;
 		pq.pop();
 
+		//노드까지 거리가 최단 비용이 아니면
 		if (cost[here] != here_cost) continue;
 
 		for (int i = 0; i < n; i++) {
