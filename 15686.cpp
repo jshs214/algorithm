@@ -1,71 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 int n, m;
 
-
-int a[55][55];
-
-int result= 992819121;
-
-vector<pair<int,int>> house;
 vector<pair<int, int>> chicken;
-vector<vector<int>> chickenList;
+vector<pair<int, int>> house;
+vector<vector<int>> chickenCombi;
 
-
-// (Chicken)C(m)
 void combi(int start, vector<int> v) {
-    if (v.size() == m){
-        chickenList.push_back(v);
-        return;
-    }
+	if (v.size() == m) {
+		chickenCombi.push_back(v);
+		return;
+	}
 
-    for (int i = start + 1; i < chicken.size(); i++) {
-        v.push_back(i);
-        combi(i, v);
-        v.pop_back();
-    }
-
-    return;
+	for (int i = start + 1; i < chicken.size(); i++) {
+		v.push_back(i);
+		combi(i, v);
+		v.pop_back();
+	}
 }
 
+int main() {
+	cin >> n >> m;
+	
+	int temp;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> temp;
+			if (temp == 1)
+				house.push_back({ i,j });
+			else if (temp == 2)
+				chicken.push_back({ i,j });
+		}
+	}
 
-int main(){
-    cin >> n >> m;
+	vector<int> v;
+	combi(-1, v);
 
-    for(int i = 0; i < n; i ++){
-        for(int j = 0; j <n; j ++){
-            cin >> a[i][j];
-            if(a[i][j] == 1)
-                house.push_back( {i, j} );
-            if(a[i][j] ==2){
-                chicken.push_back( {i, j} );
-            }
-        }
-    }
+	int result = 987654321;
+	for (vector<int> chickenC : chickenCombi) {
+		int ret = 0;
+		for (pair<int, int> _house : house) {
+			int _min = 987654321;
+			for (int idx : chickenC) {
+				int _dist = abs(_house.first - chicken[idx].first) +
+					abs(_house.second- chicken[idx].second);
+				_min = min(_min, _dist);
+			}
+			ret += _min;
+		}
+		result = min(ret, result);
+	}
 
-    vector<int> v;
-    combi(-1, v);
+	cout << result;
 
-    // Chicken집 m개 combination만큼 Loop 
-    for (auto cList : chickenList) {    // index
 
-        int ret = 0;
-        // 집 수만큼 Loop
-        for (auto k: house) {
-            int minValue = 992819121;
-
-            //각각 치킨집 순회 후 min값 저장
-            for (auto j : cList) {
-                int dist = abs(k.first - chicken[j].first) + abs(k.second - chicken[j].second);
-                minValue = min(minValue, dist);
-            }
-            ret += minValue;
-        }
-
-        result = min(result, ret);
-    }
-    cout << result << "\n";
-    
-    return 0;
+	return 0;
 }
