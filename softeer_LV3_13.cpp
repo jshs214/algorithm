@@ -22,11 +22,11 @@ pair<int, int> arr[6] = {
 
 void solve(int here, double tot, vector<int> score) {
     if (here == 6) {
-        //vector<int> tmp = score;
-        //sort(tmp.begin(), tmp.end());
+        vector<int> tmp = score;
+        sort(tmp.begin() + 1, tmp.end(), greater<int>());
 
-        //if (score[1] >= tmp[3])
-        //    ret += tot;
+        if (score[1] >= tmp[2])
+            ret += tot;
         return;
     }
 
@@ -35,7 +35,7 @@ void solve(int here, double tot, vector<int> score) {
 
     for (int i = 0; i < 3; i++) {
         double p = prob[a][b][i];
-        vector<int> tmp;
+        vector<int> tmp = score;
 
         if (i == WIN) tmp[a] += 3;
         else if (i == LOSE) tmp[b] += 3;
@@ -61,8 +61,9 @@ int main() {
         }
     }
 
-    //solve(0, 1.0, score);
-    cout << ret;
+    solve(0, 1.0, score);
+    ret = ret * 100;
+    printf("%.3f", ret);
 
     return 0;
 }
