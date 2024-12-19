@@ -50,11 +50,35 @@ void insertNode(Node* prevNode, int n) {
 
 }
 //node 삭제
-void deleteNode(Node* prevNode) {
-	Node* temp = prevNode->next;
-	prevNode->next = temp->next;
+void deleteNode(int val) {
+	if (head == NULL) {
+		cout << "Empty list" << "\n";
+		return;
+	}
 
-	delete temp;
+	// 삭제노드가 head 인 경우
+	if (head->data == val) {
+		Node* temp = head;
+		head = temp->next;
+		delete temp;
+		return;
+	}
+
+	//탐색
+	Node* temp = head;
+	while (temp->next && temp->next->data != val) {
+		temp = temp->next;
+	}
+
+	if (!temp->next) {
+		cout << "Node not found" << "\n";
+		return;
+	}
+
+	Node* deleteNode = temp->next;
+	temp->next = temp->next->next;
+	delete deleteNode;
+
 }
 
 void Print(Node* head) {
@@ -75,7 +99,7 @@ int main() {
 
 	addFrontNode(1);
 
-	deleteNode(head->next);
+	deleteNode(4);
 
 	Print(head);
 	
