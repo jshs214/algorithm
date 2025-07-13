@@ -1,73 +1,86 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
-int a[14][14];
-int visited[14][14];
+const int max_n = 12;
+
 int n;
-int dy[] = { -1, 0, 1, 0 };
-int dx[] = { 0, -1, 0 , 1 };
-int minCost = INT_MAX;
+int a[max_n][max_n];
+int visited[max_n][max_n];
+int ret = 987654321;
 
-bool CanFlower(int y, int x) {
-	if (visited[y][x]) return false;
+int dx[] = { -1, 0, 1, 0 };
+int dy[] = { 0, -1, 0, 1 };
 
-	for (int i = 0; i < 4; i++) {
+int setFlower(int y, int x)
+{
+	visited[y][x] = 1;
+
+	int sum = a[y][x];
+	for (int i = 0; i < 4; i++)
+	{
 		int ny = y + dy[i];
 		int nx = x + dx[i];
-		if (ny < 0 || ny >= n || nx < 0 || nx >= n) return false;
+		visited[ny][nx] = 1;
+		sum += a[ny][nx];
+	}
+	return sum;
+}
+void eraseFlower(int y, int x)
+{
+	visited[y][x] = 0;
+
+	for (int i = 0; i < 4; i++)
+	{
+		int ny = y + dy[i];
+		int nx = x + dx[i];
+		visited[ny][nx] = 0;
+	}
+}
+
+bool check(int y, int x)
+{
+	if (visited[y][x]) return false;
+	for (int i = 0; i < 4; i++)
+	{
+		int ny = y + dy[i];
+		int nx = x + dx[i];
+		if (ny < 0 || nx < 0 || ny >= n || nx >= n) return false;
 		if (visited[ny][nx]) return false;
 	}
-
 	return true;
 }
-int getCost(int y, int x) {
-	int cost = a[y][x];
 
-	for (int i = 0; i < 4; i++) {
-		int ny = y + dy[i];
-		int nx = x + dx[i];
-		cost += a[ny][nx];
-	}
-	return cost;
-}
-void Visit(int y, int x, int flag) {
-	visited[y][x] = flag;
-	for (int i = 0; i < 4; i++) {
-		int ny = y + dy[i];
-		int nx = x + dx[i];
-		visited[ny][nx] = flag;
-	}
-}
-
-void go(int here, int cost) {
-	if (here == 3) {
-		minCost = min(minCost, cost);
+void go(int cnt, int cost)
+{
+	if (cnt == 3) {
+		ret = min(ret, cost);
 		return;
 	}
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			if (!CanFlower(i, j)) continue;
-			Visit(i, j, 1);
-			int _cost = cost + getCost(i, j);
-			go(here + 1, _cost);
-			Visit(i, j, 0);
+
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			if (check(i, j)) {
+				go(cnt + 1, cost + setFlower(i, j));
+				eraseFlower(i, j);
+			}
+
 		}
 	}
 }
 
-
-int main() {
+int main()
+{
 	cin >> n;
 
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
 			cin >> a[i][j];
-		}
-	}
-
+	
 	go(0, 0);
-
-	cout << minCost;
-
+		
+	cout << ret;
 	return 0;
 }
